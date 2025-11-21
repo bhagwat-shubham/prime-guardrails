@@ -28,9 +28,9 @@ def assess_risk(prompt: str) -> dict:
     Task:
     1. Identify if the prompt contains: Violence, Hate Speech, Sexual Content, Self-Harm, or controversial/sensitive topics.
     2. Assign a risk score (0.0 to 1.0).
-       - 0.0: Safe (e.g. "a cute cat")
-       - 0.5: Sensitive/Context Dependent (e.g. "a person holding a sword", "political figure")
-       - 0.9+: Harmful/Unsafe (e.g. "blood", "violence", "hate speech")
+       - 0.0: Safe 
+       - 0.5: Sensitive/Context Dependent 
+       - 0.9+: Harmful/Unsafe 
     3. Provide a short 3-word reason.
 
     Return JSON ONLY:
