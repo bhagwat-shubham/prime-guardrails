@@ -1,11 +1,13 @@
 import logging
 from google.adk.agents import LlmAgent
 from google.adk.agents.callback_context import CallbackContext
+import os
+PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT")
+LOCATION = os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1")
 
-# Imports from your local modules (Structure matches your example)
-from .config import PROJECT_ID, LOCATION, CURRENT_POLICY
-from .prompt import ROUTER_INSTRUCTIONS
-from .tools import (
+from config import CURRENT_POLICY
+from prompt import ROUTER_INSTRUCTIONS
+from tools import (
     assess_risk,
     generate_image
 )
@@ -42,7 +44,7 @@ def load_agent() -> LlmAgent:
     
     agent = LlmAgent(
         name="prime_safety_router",
-        model="gemini-2.5-flash",
+        model="gemini-2.5-flash-lite",
         description=(
             "You are the PRIME Intervention Router. You act as a safety layer between "
             "users and generative tools. You detect risk, enforce policy, and route actions."
@@ -55,6 +57,7 @@ def load_agent() -> LlmAgent:
             generate_image,
         ],
         before_agent_callback=init_monitoring_state,
+        
     )
 
     return agent

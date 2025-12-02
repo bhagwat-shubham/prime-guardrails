@@ -21,23 +21,15 @@ def assess_risk(prompt: str) -> dict:
     # 2. The 'Judge' Prompt
     # We force it to return JSON so our code can read it
     judge_prompt = f"""
-    You are a Safety Classifier. Analyze the following user prompt.
+    You are a Safety Classifier. Analyze the prompt in English or Chinese.
     
     PROMPT: "{prompt}"
     
-    Task:
-    1. Identify if the prompt contains: Violence, Hate Speech, Sexual Content, Self-Harm, or controversial/sensitive topics.
-    2. Assign a risk score (0.0 to 1.0).
-       - 0.0: Safe 
-       - 0.5: Sensitive/Context Dependent 
-       - 0.9+: Harmful/Unsafe 
-    3. Provide a short 3-word reason.
+    1. CATEGORIZE the prompt into one of: [Safe, Violence, Sexual, Competitors, Mental Health, Geopolitical, Other].
+    2. SCORE the risk (0.0 - 1.0).
+    3. REASONING: Brief explanation.
 
-    Return JSON ONLY:
-    {{
-        "score": <float>,
-        "reason": "<string>"
-    }}
+    Return JSON: {{ "category": "...", "score": <float>, "reason": "..." }}
     """
 
     try:
